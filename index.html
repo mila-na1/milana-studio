@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101010">
+  <title>MILANA STUDIO — Web Designer & Developer</title>
+  <meta name="description" content="Создаю современные сайты для вашего бизнеса. MILANA STUDIO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+65px);
+}
+
+.project-card p {
+  color: #aaa;
+}
+
+.project-link {
+  color: var(--purple);
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.about-text {
+  max-width: 750px;
+  font-size: clamp(20px, 3vw, 30px);
+  line-height: 1.5;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+
+.why-item {
+  border-top: 1px solid #555;
+  padding-top: 20px;
+}
+
+.why-item h3 {
+  color: var(--purple);
+  font-size: 23px;
+  margin-bottom: 12px;
+}
+
+.why-item p {
+  color: #aaa;
+  line-height: 1.6;
+}
+
+footer {
+  background: var(--black);
+  color: white;
+  padding: 45px 5%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+footer p {
+  color: #999;
+  font-size: 13px;
+}
+
+@media (max-width: 650px) {
+  .hero h1 {
+    letter-spacing: -4px;
+  }
+
+  .section {
+    padding: 75px 5%;
+  }
+
+  .service-grid,
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    flex-basis: 88%;
+  }
+
+  header {
+    padding: 22px 5%;
+  }
+}
+  <div class="fullscreen-menu" id="fullscreenMenu">
+  <button class="close-menu" onclick="toggleMenu()">CLOSE ✕</button>
+
+  <nav>
+    <a href="#services" onclick="toggleMenu()">SERVICES</a>
+    <a href="#projects" onclick="toggleMenu()">PROJECTS</a>
+    <a href="#about" onclick="toggleMenu()">ABOUT</a>
+    <a href="#contact" onclick="toggleMenu()">CONTACT</a>
+  </nav>
+</div>
+
+<section class="section" id="contact">
+  <div class="container">
+    <p class="hero-label">LET'S TALK</p>
+    <h2 class="section-title">HAVE A <span class="purple">PROJECT?</span></h2>
+    <p class="about-text">Есть идея для сайта? Давай обсудим её!</p>
+
+    <a class="primary-button" href="https://t.me/milana_dezign" target="_blank">
+      TELEGRAM ↗
+    </a>
+  </div>
+</section>
+
+<div class="preloader" id="preloader">
+  <div>MILANA <span>STUDIO</span></div>
+</div>
+
+<script>
+function toggleMenu() {
+  document.getElementById('fullscreenMenu').classList.toggle('active');
+}
+
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('preloader').classList.add('hide');
+  }, 900);
+});
+
+const revealItems = document.querySelectorAll(
+  '.section, .service-card, .project-card, .why-item'
+);
+
+const observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+revealItems.forEach(function(item) {
+  item.classList.add('reveal');
+  observer.observe(item);
+});
+</script>
+</body>
+</html>
+</style>
+</head>
+  <header>
+  <a href="index.html" class="logo">MILANA<span>.</span>STUDIO</a>
+  <button class="menu-button" onclick="toggleMenu()">MENU +</button>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <p class="hero-label">WEB DESIGNER & DEVELOPER</p>
+
+    <h1>
+      <span>СОЗДАЮ</span>
+      <span>СОВРЕМЕННЫЕ</span>
+      <span>САЙТЫ</span>
+    </h1>
+
+    <p class="hero-description">
+      Создаю современные сайты для вашего бизнеса.
+      Дизайн, идеи и цифровые решения с характером.
+    </p>
+
+    <a href="#projects" class="primary-button">
+      СМОТРЕТЬ ПРОЕКТЫ ↗
+    </a>
+  </div>
+</section>
+
+<div class="marquee">
+  <span>
+    DESIGN ✳ CREATE ✳ DEVELOP ✳ MILANA STUDIO ✳
+    DESIGN ✳ CREATE ✳ DEVELOP ✳ MILANA STUDIO ✳
+  </span>
+</div>
+
+<section class="section light" id="services">
+  <div class="container">
+    <p class="hero-label">WHAT I DO</p>
+    <h2 class="section-title">MY <span class="purple">SERVICES</span></h2>
+
+    <div class="service-grid">
+      <div class="service-card">
+        <h3>01 / WEB DESIGN</h3>
+        <p>Визуальный дизайн и стиль современных сайтов.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>02 / DEVELOPMENT</h3>
+        <p>Создание сайтов с нуля и реализация идей.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>03 / RESPONSIVE</h3>
+        <p>Адаптация под телефоны, планшеты и компьютеры.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>04 / REDESIGN</h3>
+        <p>Обновление дизайна и структуры существующих сайтов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="container">
+    <p class="hero-label">SELECTED WORKS</p>
+    <h2 class="section-title">MY <span class="purple">PROJECTS</span></h2>
+
+    <div class="project-track">
+      <div class="project-card">
+        <p>01 / CAFE WEBSITE</p>
+        <h3>МЯТА</h3>
+        <p>Демонстрационный проект сайта кафе.</p>
+        <a class="project-link"
+           href="https://mila-na1.github.io/myata-site/"
+           target="_blank">VIEW WEBSITE ↗</a>
+      </div>
+
+      <div class="project-card">
+        <p>02 / GROOMING WEBSITE</p>
+        <h3>WOW GROOM</h3>
+        <p>Демонстрационный проект сайта груминг-салона.</p>
+        <a class="project-link"
+           href="https://wow-groom.github.io/"
+           target="_blank">VIEW WEBSITE ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section light" id="about">
+  <div class="container">
+    <p class="hero-label">A LITTLE ABOUT ME</p>
+    <h2 class="section-title">BEHIND THE <span class="purple">DESIGN</span></h2>
+
+    <p class="about-text">
+      Я Милана — начинающий веб-дизайнер и разработчик.
+      Мне нравится превращать идеи в современные цифровые проекты,
+      экспериментировать с дизайном и создавать сайты с характером.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="why">
+  <div class="container">
+    <p class="hero-label">WHY WORK WITH ME</p>
+    <h2 class="section-title">MY <span class="purple">APPROACH</span></h2>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <h3>01. Индивидуальность</h3>
+        <p>Каждый проект создаётся с учётом его задач и особенностей.</p>
+      </div>
+
+      <div class="why-item">
+        <h3>02. Современный дизайн</h3>
+        <p>Продуманная визуальная подача и интересные детали.</p>
+      </div>
+
+      <div class="why-item">
+        <h3>03. Адаптивность</h3>
+        <p>Удобное отображение на разных устройствах.</p>
+      </div>
+
+      <div class="why-item">
+        <h3>04. Внимание к деталям</h3>
+        <p>Забота о структуре, оформлении и удобстве.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 MILANA STUDIO</p>
+  <p>DESIGNED & DEVELOPED BY MILANA</p>
+</footer>
+<body>
+  <div class="fullscreen-menu" id="fullscreenMenu">
+  <button class="close-menu" onclick="toggleMenu()">CLOSE ✕</button>
+
+  <nav>
+    <a href="#services" onclick="toggleMenu()">SERVICES</a>
+    <a href="#projects" onclick="toggleMenu()">PROJECTS</a>
+    <a href="#about" onclick="toggleMenu()">ABOUT</a>
+    <a href="#contact" onclick="toggleMenu()">CONTACT</a>
+  </nav>
+</div>
+
+<section class="section" id="contact">
+  <div class="container">
+    <p class="hero-label">LET'S TALK</p>
+    <h2 class="section-title">HAVE A <span class="purple">PROJECT?</span></h2>
+    <p class="about-text">Есть идея для сайта? Давай обсудим её!</p>
+
+    <a class="primary-button" href="https://t.me/milana_dezign" target="_blank">
+      TELEGRAM ↗
+    </a>
+  </div>
+</section>
+
+<div class="preloader" id="preloader">
+  <div>MILANA <span>STUDIO</span></div>
+</div>
+
+<script>
+function toggleMenu() {
+  document.getElementById('fullscreenMenu').classList.toggle('active');
+}
+
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('preloader').classList.add('hide');
+  }, 900);
+});
+
+const revealItems = document.querySelectorAll(
+  '.section, .service-card, .project-card, .why-item'
+);
+
+const observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+revealItems.forEach(function(item) {
+  item.classList.add('reveal');
+  observer.observe(item);
+});
+</script>
+</body>
+</html>
+</body>
+  
+</html>
