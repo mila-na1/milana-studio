@@ -1,928 +1,882 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MILANA STUDIO — создание современных сайтов для бизнеса.">
-  <title>MILANA OBOLENTSEVA — MILANA STUDIO</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --black: #090909;
-      --white: #f5f4f1;
-      --purple: #a855f7;
-      --gray: #999;
-      --font-main: 'Manrope', Arial, sans-serif;
-      --font-display: 'Space Grotesk', Arial, sans-serif;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: var(--font-main);
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .preloader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: var(--black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity .6s ease, visibility .6s ease;
-    }
-
-    .preloader.hide {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .preloader-name {
-      font-family: var(--font-display);
-      font-size: clamp(25px, 6vw, 60px);
-      font-weight: 700;
-      letter-spacing: -.06em;
-    }
-
-    .preloader-name span {
-      color: var(--purple);
-    }
-
-    .header {
-      height: 90px;
-      padding: 0 7%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-    }
-
-    .logo {
-      font-family: var(--font-display);
-      font-size: 21px;
-      font-weight: 700;
-      letter-spacing: -.06em;
-    }
-
-    .logo span {
-      color: var(--purple);
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 35px;
-    }
-
-    .header-label {
-      color: #aaa;
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .menu-button {
-      border: 0;
-      background: transparent;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      cursor: pointer;
-      font-size: 12px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .menu-icon {
-      width: 35px;
-      height: 35px;
-      border: 1px solid rgba(255,255,255,.5);
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: background .3s, border-color .3s;
-    }
-
-    .menu-icon span {
-      width: 13px;
-      height: 1px;
-      background: white;
-      transition: transform .3s;
-    }
-
-    .menu-button:hover .menu-icon {
-      background: var(--purple);
-      border-color: var(--purple);
-    }
-
-    .menu-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 90;
-      background: var(--purple);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 10%;
-      clip-path: circle(0 at 95% 5%);
-      transition: clip-path .7s cubic-bezier(.76,0,.24,1);
-      visibility: hidden;
-    }
-
-    .menu-overlay.open {
-      clip-path: circle(150% at 95% 5%);
-      visibility: visible;
-    }
-
-    .menu-overlay a {
-      width: fit-content;
-      font-family: var(--font-display);
-      font-size: clamp(42px, 9vw, 105px);
-      line-height: 1.12;
-      font-weight: 700;
-      letter-spacing: -.07em;
-      transition: transform .3s, opacity .3s;
-    }
-
-    .menu-overlay a:hover {transform: translateX(20px);
-      opacity: .65;
-    }
-
-    .menu-caption {
-      margin-top: 45px;
-      font-size: 11px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
-
-    .hero {
-      min-height: 100vh;
-      padding: 180px 7% 70px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 550px;
-      height: 550px;
-      border-radius: 50%;
-      background: var(--purple);
-      filter: blur(180px);
-      opacity: .2;
-      right: -180px;
-      top: 15%;
-      pointer-events: none;
-    }
-
-    .hero-topline {
-      color: var(--gray);
-      font-size: 11px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      margin-bottom: 35px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(65px, 12.5vw, 175px);
-      line-height: .84;
-      letter-spacing: -.09em;
-      font-weight: 700;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-title span {
-      display: block;
-      animation: titleIn .9s both;
-    }
-
-    .hero-title span:nth-child(2) {
-      animation-delay: .15s;
-    }
-
-    .hero-title span:nth-child(3) {
-      color: var(--purple);
-      animation-delay: .3s;
-    }
-
-    @keyframes titleIn {
-      from {
-        opacity: 0;
-        transform: translateY(55px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero-bottom {
-      margin-top: 65px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 30px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-description {
-      max-width: 390px;
-      color: #aaa;
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .hero-description strong {
-      color: white;
-      font-weight: 600;
-    }
-
-    .round-link {
-      width: 125px;
-      height: 125px;
-      border: 1px solid rgba(255,255,255,.45);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 11px;
-      line-height: 1.5;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      transition: background .3s, border-color .3s, transform .3s;
-    }
-
-    .round-link:hover {
-      background: var(--purple);
-      border-color: var(--purple);
-      transform: rotate(-10deg);
-    }
-
-    .section {
-      padding: 130px 7%;
-    }
-
-    .section-light {
-      background: var(--white);
-      color: var(--black);
-    }
-
-    .eyebrow {
-      color: var(--purple);
-      font-size: 11px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      margin-bottom: 25px;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(42px, 7vw, 92px);
-      line-height: .98;
-      letter-spacing: -.07em;
-      font-weight: 600;
-    }
-
-    .section-title .accent {
-      color: var(--purple);
-    }
-
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 70px;
-      align-items: end;
-    }
-
-    .intro-text {
-      max-width: 390px;
-      color: #777;
-      font-size: 15px;
-      line-height: 1.9;
-    }
-
-    .text-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 15px;
-      margin-top: 30px;
-      padding-bottom: 9px;
-      border-bottom: 1px solid var(--purple);
-      font-size: 12px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      transition: color .3s;
-    }
-
-    .text-link:hover {
-      color: var(--purple);
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      margin-top: 70px;
-      border-top: 1px solid rgba(0,0,0,.18);
-    }
-
-    .service-card {
-      padding: 35px 25px 35px 0;
-      border-bottom: 1px solid rgba(0,0,0,.18);
-      display: flex;
-      gap: 25px;
-    }
-
-    .service-card:nth-child(odd) {border-right: 1px solid rgba(0,0,0,.18);
-    }
-
-    .service-card:nth-child(even) {
-      padding-left: 30px;
-    }
-
-    .service-number {
-      color: var(--purple);
-      font-size: 12px;
-    }
-
-    .service-card h3 {
-      font-family: var(--font-display);
-      font-size: clamp(20px, 2.5vw, 30px);
-      letter-spacing: -.04em;
-      margin-bottom: 12px;
-    }
-
-    .service-card p {
-      color: #777;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="preloader" id="preloader">
-    <div class="preloader-name">MILANA<span>.</span> STUDIO</div>
-  </div>
-
-  <header class="header">
-    <a class="logo" href="index.html">MILANA<span>.</span> STUDIO</a>
-
-    <div class="header-right">
-      <span class="header-label">ВЕБ-ДИЗАЙН И РАЗРАБОТКА</span>
-      <button class="menu-button" id="menuButton" aria-label="Открыть меню" aria-expanded="false">
-        МЕНЮ
-        <span class="menu-icon">
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-    </div>
-  </header>
-
-  <nav class="menu-overlay" id="menuOverlay">
-    <a href="index.html">ГЛАВНАЯ</a>
-    <a href="projects.html">ПРОЕКТЫ</a>
-    <a href="about.html">ОБО МНЕ</a>
-    <a href="contact.html">КОНТАКТЫ</a>
-    <div class="menu-caption">MILANA OBOLENTSEVA — MILANA STUDIO</div>
-  </nav>
-
-  <main>
-
-    <section class="hero">
-      <div class="hero-glow"></div>
-
-      <div class="hero-topline">
-        ВЕБ-ДИЗАЙНЕР И РАЗРАБОТЧИК — 2026
-      </div>
-
-      <h1 class="hero-title">
-        <span>СОЗДАЮ</span>
-        <span>СОВРЕМЕННЫЕ</span>
-        <span>САЙТЫ</span>
-      </h1>
-
-      <div class="hero-bottom">
-        <p class="hero-description">
-          <strong>Создаю современные сайты для вашего бизнеса.</strong>
-          Соединяю визуальную эстетику, удобство и функциональность,
-          чтобы превращать идеи в цифровые проекты.
-        </p>
-
-        <a class="round-link" href="projects.html">
-          СМОТРЕТЬ<br>ПРОЕКТЫ<br>↘
-        </a>
-      </div>
-    </section>
-
-    <section class="section section-light">
-      <div class="intro-grid">
-        <div>
-          <div class="eyebrow">01 — МОЯ РАБОТА</div>
-          <h2 class="section-title">
-            ЦИФРОВЫЕ<br>
-            <span class="accent">РЕШЕНИЯ</span><br>
-            ДЛЯ ВАШЕГО<br>
-            БИЗНЕСА.
-          </h2>
-        </div>
-
-        <div>
-          <p class="intro-text">
-            Каждый проект начинается с идеи. Я помогаю превратить её
-            в современный сайт, который отражает индивидуальность
-            бренда и делает взаимодействие с ним удобным.
-          </p>
-          <a class="text-link" href="about.html">
-            ОБО МНЕ <span>↗</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="services-grid">
-        <article class="service-card">
-          <span class="service-number">01</span>
-          <div>
-            <h3>ВЕБ-ДИЗАЙН</h3>
-            <p>Создание визуальной концепции и продуманного дизайна сайта.</p>
-          </div>
-        </article>
-
-        <article class="service-card">
-          <span class="service-number">02</span>
-          <div>
-            <h3>РАЗРАБОТКА САЙТОВ</h3>
-            <p>Создание сайтов с нуля с помощью современных технологий.</p>
-          </div>
-        </article>
-
-        <article class="service-card">
-          <span class="service-number">03</span>
-          <div>
-            <h3>АДАПТАЦИЯ САЙТОВ</h3>
-            <p>Настройка сайта для комфортного просмотра на разных устройствах.</p>
-          </div>
-        </article>
-
-        <article class="service-card">
-          <span class="service-number">04</span>
-          <div>
-            <h3>ОБНОВЛЕНИЕ САЙТОВ</h3>
-            <p>Улучшение внешнего вида и удобства уже существующих сайтов.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="eyebrow">02 — ИЗБРАННЫЕ ПРОЕКТЫ</div>
-
-      <div class="intro-grid">
-        <h2 class="section-title">
-          МОИ<br>
-          <span class="accent">РАБОТЫ.</span>
-        </h2>
-
-        <div>
-          <p class="intro-text">
-            Проекты, в которых я экспериментирую с дизайном,
-            структурой и современными веб-решениями.
-          </p>
-          <a class="text-link" href="projects.html">
-            ВСЕ ПРОЕКТЫ <span>↗</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="projects-preview">
-        <a class="" href="https://mila-na1.github.io/myata-site/" target="_blank" rel="noopener noreferrer">
-          <div class="project-visual project-cafe">
-            <span class="project-label">01 / САЙТ КАФЕ</span>
-            <span class="project-big">МЯТА</span>
-            <span class="project-small">КОНЦЕПЦИЯ КАФЕ</span>
-          </div>
-          <div class="project-info">
-            <h3>САЙТ КАФЕ «МЯТА»</h3>
-            <span>ОТКРЫТЬ САЙТ ↗</span>
-          </div>
-        </a>
-
-        <a class="project-preview" href="https://mila-na1.github.io/wow-groom/" target="_blank" rel="noopener noreferrer">
-          <div class="project-visual project-groom">
-            <span class="project-label">02 / САЙТ ГРУМИНГА</span>
-            <span class="project-big">WOW<br>GROOM</span>
-            <span class="project-small">СТУДИЯ ГРУМИНГА</span>
-          </div>
-          <div class="project-info">
-            <h3>WOW GROOM</h3>
-            <span>ОТКРЫТЬ САЙТ ↗</span>
-          </div>
-        </a>
-        <a class="project-preview" href="https://mila-na1.github.io/lumi-beauty/"
-  <div class="project-visual project-beauty">
-    <span class="project-label">03 / BEAUTY SALON</span>
-    <span class="project-big">LUMI BEAUTY</span>
-    <span class="project-small">САЛОН КРАСОТЫ</span>
-  </div>
-  <div class="project-info">
-    <h3>LUMI BEAUTY</h3>
-    <span>ОТКРЫТЬ САЙТ ↗</span>
-  </div>
-</a>
-
-<a class="" href="https://mila-na1.github.io/lumiere-hotel/" target="_blank" rel="noopener noreferrer">
-  <div class="project-visual project-hotel">
-    <span class="project-label">04 / HOSPITALITY</span>
-    <span class="project-big">LUMIÈRE HOTEL</span>
-    <span class="project-small">BOUTIQUE HOTEL</span>
-  </div>
-  <div class="project-info">
-    <h3>LUMIÈRE HOTEL</h3>
-    <span>ОТКРЫТЬ САЙТ ↗</span>
-  </div>
-</a>
-      </div>
-    </section>
-
-    <section class="section section-light">
-      <div class="eyebrow">03 — ПОЧЕМУ Я</div>
-
-      <h2 class="section-title">
-        ВАЖНА<br>
-        <span class="accent">КАЖДАЯ ДЕТАЛЬ.</span>
-      </h2>
-
-      <div class="benefits-grid">
-        <div class="benefit">
-          <span>01</span>
-          <h3>ИНДИВИДУАЛЬНЫЙ ПОДХОД</h3>
-          <p>Каждый проект создаётся с учётом его идеи и задач.</p>
-        </div>
-
-        <div class="benefit">
-          <span>02</span>
-          <h3>СОВРЕМЕННЫЙ ДИЗАЙН</h3>
-          <p>Внимание к актуальным визуальным решениям и деталям.</p>
-        </div>
-
-        <div class="benefit">
-          <span>03</span>
-          <h3>АДАПТИВНОСТЬ</h3>
-          <p>Комфортное отображение на телефонах, планшетах и компьютерах.</p>
-        </div>
-
-        <div class="benefit">
-          <span>04</span>
-          <h3>ВНИМАНИЕ К ДЕТАЛЯМ</h3>
-          <p>Аккуратная работа над каждым элементом сайта.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact-banner">
-      <div class="eyebrow">04 — ДАВАЙТЕ ОБСУДИМ</div>
-      <h2>ЕСТЬ<br>ИДЕЯ<span>?</span></h2>
-      <p>Есть идея для сайта? Давай обсудим её.</p>
-      <a href="contact.html" class="contact-button">СВЯЗАТЬСЯ СО МНОЙ ↗</a>
-    </section>
-
-  </main>
-  <footer class="footer">
-    <a class="logo" href="index.html">MILANA<span>.</span> STUDIO</a>
-    <div class="footer-credit">ДИЗАЙН И РАЗРАБОТКА — MILANA OBOLENTSEVA</div>
-    <div class="footer-copy">© 2026 MILANA STUDIO</div>
-    <a href="https://t.me/milana_dezign" target="_blank" rel="noopener noreferrer" class="footer-social">ТЕЛЕГРАМ ↗</a>
-  </footer>
-
-  <style>
-    .projects-preview {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      margin-top: 65px;
-    }
-.project-preview {
-    width: 100%;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0d">
+<title>MILANA STUDIO — Создание сайтов</title>
+<meta name="description" content="MILANA STUDIO — создание стильных и современных сайтов.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #0b0b0d;
+    --purple: #a77aff;
+    --white: #f8f6fb;
+    --muted: #aaa6b2;
+    --line: rgba(255,255,255,.13);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Manrope', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(1180px, 90%);
+    margin: auto;
+}
+
+/* ШАПКА */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11,11,13,.9);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--line);
+}
+
+.nav {
+    min-height: 78px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--purple);
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+}
+
+.nav-links a {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #d0ccd6;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: var(--purple);
+}
+
+.menu-button {
+    display: none;
+    color: white;
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+/* ГЛАВНЫЙ ЭКРАН */
+
+.hero {
+    min-height: 680px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    right: -150px;
+    top: 20px;
+    background: radial-gradient(circle, rgba(139,85,255,.25), transparent 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 100px 0;
+}
+
+.eyebrow {
+    color: var(--purple);
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 10vw, 120px);
+    line-height: .95;
+    letter-spacing: -6px;
+    font-weight: 800;
+}
+
+.hero h1 span {
+    color: var(--purple);
+}
+
+.hero-description {
+    max-width: 490px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+    margin-top: 30px;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+    margin-top: 35px;
+}
+
+.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 23px;
+    background: var(--purple);
+    border: 1px solid var(--purple);
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: .3s;
+}
+
+.button:hover {
+    background: transparent;
+    transform: translateY(-3px);
+}
+
+.button-outline {
+    background: transparent;
+    border-color: var(--line);
+}
+
+/* ОБЩИЕ СЕКЦИИ */
+
+.section {
+    padding: 105px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.section-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 30px;
+    margin-bottom: 45px;
+}
+
+.section-number {
+    color: var(--purple);
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+.section-title {
+    font-size: clamp(38px, 6vw, 72px);
+    letter-spacing: -3px;
+    line-height: 1;
+}
+
+.section-title span {
+    color: var(--purple);
+}
+
+.section-note {
+    max-width: 340px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* ПРОЕКТЫ */
+
+.projects-grid {display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.project {
+    display: block;
     min-width: 0;
 }
-    .project-visual {
-      min-height: 390px;
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      transition: transform .5s;
-    }
 
-    .:hover .project-visual {
-      transform: scale(.98);
-    }
+.project-visual {
+    min-height: 330px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+    transition: transform .35s;
+}
 
-    .project-cafe {
-      background: #d9d1c3;
-      color: #29251f;
-    }
-    .project-beauty {
-    background: #e8bfc5;
-    color: #ffffff;
+.project:hover .project-visual {
+    transform: scale(.985);
+}
+
+.project-visual::after {
+    content: "";
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    opacity: .17;
+    right: -65px;
+    bottom: -90px;
+}
+
+.project-label,
+.project-small {
+    font-size: 10px;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+.project-name {
+    font-size: clamp(38px, 6vw, 67px);
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: .95;
+    position: relative;
+    z-index: 1;
+    overflow-wrap: anywhere;
+}
+
+.project-info {
+    padding: 19px 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+}
+
+.project-info h3 {
+    font-size: 14px;
+}
+
+.project-info p {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.project-arrow {
+    color: var(--purple);
+    font-size: 23px;
+}
+
+/* ЦВЕТА КАРТОЧЕК */
+
+.project-cafe {
+    background: #d9c9b3;
+    color: #4b392b;
+}
+
+.project-groom {
+    background: #7652ad;
+    color: white;
+}
+
+.project-beauty {
+    background: #e8bfc8;
+    color: #704c56;
 }
 
 .project-hotel {
     background: #e8dfcf;
-    color: #4b4033;
+    color: #514536;
 }
 
-    .project-groom {
-      background: #a855f7;
-      color: white;
-    }
+/* УСЛУГИ */
 
-    .project-label,
-    .project-small {
-      font-size: 10px;
-      letter-spacing: .16em;
-    }
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+}
 
-    .project-big {
-      font-family: var(--font-display);
-      font-size: clamp(55px, 9vw, 110px);
-      line-height: .85;
-      font-weight: 700;
-      letter-spacing: -.09em;
-    }
+.service {
+    min-height: 195px;
+    padding: 25px 20px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
 
-    .project-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(255,255,255,.2);
-    }
+.service-number {
+    color: var(--purple);
+    font-size: 11px;
+    margin-bottom: 42px;
+}
 
-    .project-info h3 {
-      font-family: var(--font-display);
-      font-size: 16px;
-    }
+.service h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
 
-    .project-info span {
-      color: var(--purple);
-      font-size: 10px;
-      letter-spacing: .1em;
-    }
+.service p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
 
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      margin-top: 70px;
-      border-top: 1px solid rgba(0,0,0,.2);
-    }
+/* ОБО МНЕ */
 
-    .benefit {
-      padding: 35px 25px 35px 0;
-      border-bottom: 1px solid rgba(0,0,0,.2);
-    }
+.about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 65px;
+}
 
-    .benefit:nth-child(odd) {
-      border-right: 1px solid rgba(0,0,0,.2);
-    }
+.about-text {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+}
 
-    .benefit:nth-child(even) {
-      padding-left: 30px;
-    }
+.about-text p + p {
+    margin-top: 18px;
+}
 
-    .benefit > span {
-      color: var(--purple);
-      font-size: 12px;
-    }
+.about-list {
+    border-top: 1px solid var(--line);
+}
 
-    .benefit h3 {
-      font-family: var(--font-display);
-      font-size: 20px;
-      margin: 25px 0 12px;
-    }
+.about-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 19px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+}
 
-    .benefit p {
-      color: #777;
-      font-size: 13px;
-      line-height: 1.7;
-    }
+.about-item span:last-child {
+    color: var(--muted);
+    text-align: right;
+}
 
-    .contact-banner {
-      background: var(--purple);
-      color: white;
-      padding: 120px 7%;
-    }
+/* КОНТАКТЫ */
 
-    .contact-banner .eyebrow {
-      color: rgba(255,255,255,.7);
-    }
+.contacts {
+    background: #17121f;
+}
 
-    .contact-banner h2 {
-      font-family: var(--font-display);
-      font-size: clamp(70px, 14vw, 180px);
-      line-height: .82;
-      letter-spacing: -.09em;
-    }
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 50px;
+    align-items: end;
+}
 
-    .contact-banner h2 span {
-      color: var(--black);
-    }
+.contact-title {
+    font-size: clamp(48px, 8vw, 90px);
+    line-height: .98;
+    letter-spacing: -5px;
+}
 
-    .contact-banner p {
-      margin-top: 35px;
-      font-size: 15px;
-    }
+.contact-title span {
+    color: var(--purple);
+}
 
-    .contact-button {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 18px 28px;
-      border: 1px solid white;
-      border-radius: 50px;
-      font-size: 11px;
-      letter-spacing: .12em;
-      transition: background .3s, color .3s;
-    }
+.contact-description {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 470px;
+    margin-top: 25px;
+}
 
-    .contact-button:hover {
-      background: white;
-      color: var(--purple);
-    }
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
 
-    .footer {
-      padding: 35px 7%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 10px;
-      letter-spacing: .1em;
-    }
+.contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px;
+    border: 1px solid var(--line);
+    transition: .3s;
+}
 
-    .footer-credit,
-    .footer-copy {
-      color: #888;
-    }
+.contact-link:hover {
+    border-color: var(--purple);
+    transform: translateX(5px);
+}
 
-    .footer-social {
-      transition: color .3s;
-    }
+.contact-link strong {
+    font-size: 14px;
+}
 
-    .footer-social:hover {
-      color: var(--purple);
-    }
+.contact-link span {
+    color: var(--purple);
+    font-size: 12px;
+}
 
-    @media (max-width: 700px) {
-      .header {
-        height: 75px;
-        padding: 0 6%;
-      }
+/* ПОДВАЛ */
 
-      .header-label {
+footer {
+    padding: 30px 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.footer-logo {
+    color: white;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* АНИМАЦИЯ */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ТЕЛЕФОНЫ */
+
+@media (max-width: 800px) {
+    .nav-links {
         display: none;
-      }
-
-      .hero {
-        min-height: 90vh;
-        padding: 150px 6% 55px;
-      }
-
-      .hero-title {
-        font-size: clamp(55px, 13vw, 95px);
-      }
-
-      .hero-bottom {
-        align-items: flex-start;
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        background: #17121f;
+        padding: 25px 5%;
         flex-direction: column;
-        margin-top: 45px;
-      }
+        gap: 22px;
+        border-bottom: 1px solid var(--line);
+    }
 
-      .round-link {
-        width: 95px;
-        height: 95px;
-      }
+    .nav-links.open {
+        display: flex;
+    }
 
-      .section {
-        padding: 85px 6%;
-      }
+    .menu-button {
+        display: block;
+    }
 
-      .intro-grid {
+    .hero {
+        min-height: 590px;
+    }
+
+    .hero h1 {
+        letter-spacing: -4px;
+    }
+
+    .section {
+        padding: 80px 0;
+    }
+
+    .section-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-visual {
+        min-height: 270px;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-layout,
+    .contact-layout {
         grid-template-columns: 1fr;
         gap: 35px;
-      }
+    }
+}
 
-      .services-grid,
-      .projects-preview,
-      .benefits-grid {
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 54px;
+    }
+
+    .services-grid {
         grid-template-columns: 1fr;
-      }
+    }
 
-      .service-card:nth-child(odd),
-      .benefit:nth-child(odd) {
-        border-right: 0;
-      }
+    .project-visual {
+        min-height: 240px;
+    }
 
-      .service-card:nth-child(even),
-      .benefit:nth-child(even) {
-        padding-left: 0;
-      }
+    .contact-title {
+        letter-spacing: -3px;
+    }
 
-      .project-visual {
-        min-height: 300px;
-      }
-
-      .contact-banner {
-        padding: 90px 6%;
-      }
-
-      .footer {
-        padding: 30px 6%;
+    .footer-content {
         flex-direction: column;
-        align-items: flex-start;
-      }
     }
+}
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
         scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
         transition-duration: .01ms !important;
-      }
     }
-  </style>
+}
+</style>
+</head>
 
-  <script>
-    const preloader = document.getElementById('preloader');
-    const menuButton = document.getElementById('menuButton');
-    const menuOverlay = document.getElementById('menuOverlay');
+<body>
 
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        preloader.classList.add('hide');
-      }, 400);
-    });
+<header>
+    <div class="container nav">
+        <a href="#home" class="logo">MILANA<span>.</span> STUDIO</a>
 
-    menuButton.addEventListener('click', () => {
-      const isOpen = menuOverlay.classList.toggle('open');
-      menuButton.setAttribute('aria-expanded', String(isOpen));
-      menuButton.querySelector('.menu-icon').style.transform =
-        isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
-    });
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">ГЛАВНАЯ</a>
+            <a href="#projects">ПРОЕКТЫ</a>
+            <a href="#about">ОБО МНЕ</a>
+            <a href="#contacts">КОНТАКТЫ</a>
+        </nav>
 
-    menuOverlay.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuOverlay.classList.remove('open');
+        <button class="menu-button" id="menuButton" type="button" aria-expanded="false">
+            МЕНЮ +
+        </button>
+    </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+    <div class="container hero-content reveal">
+        <div class="eyebrow">ДИЗАЙН · ИДЕИ · ЦИФРОВЫЕ ПРОЕКТЫ</div>
+
+        <h1>
+            СОЗДАЮ<br>
+            СОВРЕМЕННЫЕ<br>
+            <span>САЙТЫ.</span>
+        </h1>
+
+        <p class="hero-description">
+            Превращаю идеи в стильные цифровые проекты.
+            Продумываю визуал, структуру и детали,
+            чтобы каждый сайт имел свой характер.
+        </p>
+
+        <div class="actions">
+            <a href="#projects" class="button">СМОТРЕТЬ ПРОЕКТЫ ↗</a>
+            <a href="#contacts" class="button button-outline">СВЯЗАТЬСЯ СО МНОЙ</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="projects">
+    <div class="container">
+
+        <div class="section-top reveal">
+            <div>
+                <div class="section-number">01 / ПОРТФОЛИО</div>
+                <h2 class="section-title">МОИ <span>РАБОТЫ.</span></h2>
+            </div>
+
+            <p class="section-note">
+                Четыре проекта, четыре разные атмосферы.
+                Каждый сайт создан с вниманием к деталям.
+            </p>
+        </div>
+
+        <div class="projects-grid">
+
+            <a class="project reveal" href="https://mila-na1.github.io/myata-site/" target="_blank" rel="noopener noreferrer">
+                <div class="project-visual project-cafe">
+                    <span class="project-label">01 / САЙТ КАФЕ</span>
+                    <span class="project-name">МЯТА</span>
+                    <span class="project-small">ВКУС · АТМОСФЕРА · УЮТ</span>
+                </div>
+                <div class="project-info">
+                    <div>
+                        <h3>МЯТА</h3>
+                        <p>Сайт кафе</p>
+                    </div>
+                    <span class="project-arrow">↗</span>
+                </div>
+            </a>
+            <a class="project reveal" href="https://mila-na1.github.io/wow-groom/" target="_blank" rel="noopener noreferrer">
+                <div class="project-visual project-groom">
+                    <span class="project-label">02 / САЙТ ГРУМИНГ-САЛОНА</span>
+                    <span class="project-name">WOW<br>GROOM</span>
+                    <span class="project-small">ЗАБОТА · СТИЛЬ · ПИТОМЦЫ</span>
+                </div>
+                <div class="project-info">
+                    <div>
+                        <h3>WOW GROOM</h3>
+                        <p>Сайт груминг-салона</p>
+                    </div>
+                    <span class="project-arrow">↗</span>
+                </div>
+            </a>
+
+            <a class="project reveal" href="https://mila-na1.github.io/lumi-beauty/" target="_blank" rel="noopener noreferrer">
+                <div class="project-visual project-beauty">
+                    <span class="project-label">03 / САЙТ САЛОНА КРАСОТЫ</span>
+                    <span class="project-name">LUMI<br>BEAUTY</span>
+                    <span class="project-small">КРАСОТА · УХОД · ЭСТЕТИКА</span>
+                </div>
+                <div class="project-info">
+                    <div>
+                        <h3>LUMI BEAUTY</h3>
+                        <p>Сайт салона красоты</p>
+                    </div>
+                    <span class="project-arrow">↗</span>
+                </div>
+            </a>
+
+            <a class="project reveal" href="https://mila-na1.github.io/lumiere-hotel/" target="_blank" rel="noopener noreferrer">
+                <div class="project-visual project-hotel">
+                    <span class="project-label">04 / САЙТ ОТЕЛЯ</span>
+                    <span class="project-name">LUMIÈRE<br>HOTEL</span>
+                    <span class="project-small">КОМФОРТ · СТИЛЬ · ОТДЫХ</span>
+                </div>
+                <div class="project-info">
+                    <div>
+                        <h3>LUMIÈRE HOTEL</h3>
+                        <p>Сайт отеля</p>
+                    </div>
+                    <span class="project-arrow">↗</span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<section class="section" id="services">
+    <div class="container">
+
+        <div class="section-top reveal">
+            <div>
+                <div class="section-number">02 / ЧТО Я ДЕЛАЮ</div>
+                <h2 class="section-title">МОИ <span>ВОЗМОЖНОСТИ.</span></h2>
+            </div>
+            <p class="section-note">
+                От первой идеи до готовой страницы.
+                Важна каждая деталь.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service reveal">
+                <div class="service-number">01</div>
+                <h3>Веб-дизайн</h3>
+                <p>Создание визуальной концепции и продуманного оформления.</p>
+            </div>
+
+            <div class="service reveal">
+                <div class="service-number">02</div>
+                <h3>Разработка сайтов</h3>
+                <p>Создание современных страниц с удобной структурой.</p>
+            </div>
+
+            <div class="service reveal">
+                <div class="service-number">03</div>
+                <h3>Оформление</h3>
+                <p>Подбор цветов, шрифтов и визуальных элементов.</p>
+            </div>
+
+            <div class="service reveal">
+                <div class="service-number">04</div>
+                <h3>Адаптация</h3>
+                <p>Настройка отображения сайта на телефонах и компьютерах.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="container">
+
+        <div class="section-top reveal">
+            <div>
+                <div class="section-number">03 / ЗНАКОМСТВО</div>
+                <h2 class="section-title">ОБО <span>МНЕ.</span></h2>
+            </div>
+        </div>
+
+        <div class="about-layout">
+            <div class="about-text reveal">
+                <p>
+                    Привет! Я создательница MILANA STUDIO.
+                    Мне нравится придумывать сайты, работать
+                    с визуалом и превращать идеи в реальные проекты.
+                </p>
+
+                <p>
+                    Для меня сайт — это не просто набор страниц.
+                    Это атмосфера, первое впечатление и внимание
+                    к каждой детали.
+                </p>
+
+                <p>
+                    В своих работах я экспериментирую со стилями,
+                    цветами и оформлением, стараясь сделать
+                    каждый проект узнаваемым.
+                </p>
+            </div>
+
+            <div class="about-list reveal">
+                <div class="about-item">
+                    <span>Направление</span>
+                    <span>Веб-дизайн и сайты</span>
+                </div>
+                <div class="about-item">
+                    <span>Подход</span>
+                    <span>Творчество и детали</span>
+                </div>
+                <div class="about-item">
+                    <span>Стиль</span>
+                    <span>Современный и эстетичный</span>
+                </div>
+                <div class="about-item">
+                    <span>Цель</span>
+                    <span>Создавать интересные проекты</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section contacts" id="contacts">
+    <div class="container">
+
+        <div class="contact-layout">
+            <div class="reveal">
+                <div class="section-number">04 / СВЯЗЬ</div>
+
+                <h2 class="contact-title">
+                    ЕСТЬ<br>
+                    <span>ИДЕЯ?</span>
+                </h2>
+
+                <p class="contact-description">
+                    Хочешь обсудить проект или задать вопрос?
+                    Напиши мне удобным способом. Буду рада
+                    познакомиться с твоей идеей!
+                </p>
+            </div>
+
+            <div class="contact-links reveal">
+
+                <a class="contact-link" href="https://t.me/milana_dezign" target="_blank" rel="noopener noreferrer">
+                    <strong>TELEGRAM</strong>
+                    <span>@milana_dezign ↗</span>
+                </a>
+
+                <a class="contact-link" href="https://max.ru/u/f9LHodD0cOIl6igxa33z4P0G-TfRdwm-9nOHTfkVRQI1WHsD8Ez5xWQtebQ" target="_blank" rel="noopener noreferrer">
+                    <strong>MAX</strong>
+                    <span>МОЙ ПРОФИЛЬ ↗</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container footer-content">
+        <span class="footer-logo">MILANA STUDIO.</span>
+        <span>СОЗДАНО С ВНИМАНИЕМ К ДЕТАЛЯМ</span>
+        <span>© 2026 MILANA STUDIO</span>
+    </div>
+</footer>
+
+<script>
+const menuButton = document.getElementById('menuButton');
+const navLinks = document.getElementById('navLinks');
+
+menuButton.addEventListener('click', () => {
+    const opened = navLinks.classList.toggle('open');
+    menuButton.setAttribute('aria-expanded', String(opened));
+    menuButton.textContent = opened ? 'ЗАКРЫТЬ ×' : 'МЕНЮ +';
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
         menuButton.setAttribute('aria-expanded', 'false');
-        menuButton.querySelector('.menu-icon').style.transform = 'rotate(0deg)';
-      });
+        menuButton.textContent = 'МЕНЮ +';
     });
-  </script>
+});
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(element => {
+    observer.observe(element);
+});
+</script>
 
 </body>
 </html>
