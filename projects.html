@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — MILANA STUDIO</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #090909;
+    color: #fff;
+    font-family: 'Manrope', sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+header {
+    padding: 28px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #292929;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #a78bfa;
+}
+
+nav {
+    display: flex;
+    gap: 27px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+nav a {
+    color: #aaa;
+    transition: .3s;
+}
+
+nav a:hover,
+nav a.active {
+    color: #fff;
+}
+
+.hero {
+    padding: 100px 7% 75px;
+}
+
+.eyebrow {
+    color: #a78bfa;
+    font-size: 12px;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(55px, 11vw, 125px);
+    line-height: .95;
+    letter-spacing: -7px;
+    font-weight: 800;
+}
+
+h1 span {
+    color: #a78bfa;
+}
+
+.hero-description {
+    color: #999;
+    max-width: 430px;
+    line-height: 1.8;
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.projects {
+    padding: 20px 7% 110px;
+}
+
+.section-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    color: #777;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.project {
+    display: block;
+    overflow: hidden;
+    border-radius: 5px;
+    transition: transform .35s;
+}
+
+.project:hover {
+    transform: translateY(-7px);
+}
+
+.project-visual {
+    min-height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 35px;
+}
+
+.project-visual::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    opacity: .2;
+}
+
+.project-visual::after {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    opacity: .2;
+}
+
+.project-number {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    opacity: .7;
+}
+
+.project-category {
+    position: absolute;
+    bottom: 25px;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+.project-name {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(30px, 5vw, 55px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    text-align: center;
+}
+
+.cafe {
+    background: #d8c2a4;
+    color: #49392d;
+}
+
+.groom {
+    background: #7961a9;
+    color: #fff;
+}
+
+.beauty {
+    background: #e8c4cb;
+    color: #704b55;
+}
+
+.hotel {
+    background: #e8dfcf;
+    color: #514536;
+}
+
+.project-info {
+    background: #151515;
+    padding: 23px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-info h2 {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.project-info p {
+    color: #888;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.arrow {
+    font-size: 25px;
+    color: #a78bfa;
+    transition: .3s;
+}
+
+.project:hover .arrow {
+    transform: translate(5px, -5px);
+}
+
+.bottom {
+    padding: 55px 7%;
+    border-top: 1px solid #292929;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #777;
+    font-size: 12px;
+}
+
+.bottom strong {
+    color: white;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 700px) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav {
+        gap: 13px;
+        flex-wrap: wrap;
+        justify-content: center;
+      font-size: 10px;
+    }
+
+    .hero {
+        padding-top: 75px;
+    }
+
+    h1 {
+        letter-spacing: -3px;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-visual {
+        min-height: 270px;
+    }
+
+    .bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">MILANA <span>STUDIO.</span></a>
+
+    <nav>
+        <a href="index.html">ГЛАВНАЯ</a>
+        <a href="projects.html" class="active">ПРОЕКТЫ</a>
+        <a href="about.html">ОБО МНЕ</a>
+        <a href="contact.html">КОНТАКТЫ</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <p class="eyebrow">MILANA STUDIO / PORTFOLIO</p>
+    <h1>SELECTED<br><span>PROJECTS.</span></h1>
+    <p class="hero-description">
+        Каждая работа — отдельная история, собственная эстетика
+        и внимание к каждой детали.
+    </p>
+</section>
+
+<section class="projects">
+    <div class="section-top">
+        <span>МОИ РАБОТЫ</span>
+        <span>04 PROJECTS</span>
+    </div>
+
+    <div class="project-grid">
+
+        <a class="project" href="https://mila-na1.github.io/project-cafe/" target="_blank" rel="noopener noreferrer">
+            <div class="project-visual cafe">
+                <span class="project-number">01 / 04</span>
+                <span class="project-name">МЯТА</span>
+                <span class="project-category">CAFE / RESTAURANT</span>
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Мята</h2>
+                    <p>Сайт кафе</p>
+                </div>
+                <span class="arrow">↗</span>
+            </div>
+        </a>
+
+        <a class="project" href="https://mila-na1.github.io/wow-groom/" target="_blank" rel="noopener noreferrer">
+            <div class="project-visual groom">
+                <span class="project-number">02 / 04</span>
+                <span class="project-name">WOW GROOM</span>
+                <span class="project-category">GROOMING / PET CARE</span>
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>WOW GROOM</h2>
+                    <p>Сайт груминг-салона</p>
+                </div>
+                <span class="arrow">↗</span>
+            </div>
+        </a>
+
+        <a class="project" href="https://mila-na1.github.io/lumi-beauty/" target="_blank" rel="noopener noreferrer">
+            <div class="project-visual beauty">
+                <span class="project-number">03 / 04</span>
+                <span class="project-name">LUMI BEAUTY</span>
+                <span class="project-category">BEAUTY / SALON</span>
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>LUMI BEAUTY</h2>
+                    <p>Сайт салона красоты</p>
+                </div>
+                <span class="arrow">↗</span>
+            </div>
+        </a>
+
+        <a class="project" href="https://mila-na1.github.io/lumiere-hotel/" target="_blank" rel="noopener noreferrer">
+            <div class="project-visual hotel">
+                <span class="project-number">04 / 04</span>
+                <span class="project-name">LUMIÈRE<br>HOTEL</span>
+                <span class="project-category">HOTEL / HOSPITALITY</span>
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>LUMIÈRE HOTEL</h2>
+                    <p>Сайт отеля</p>
+                </div>
+                <span class="arrow">↗</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<footer class="bottom">
+    <strong>MILANA STUDIO.</strong>
+    <span>DESIGNED WITH ATTENTION TO DETAIL</span>
+    <span>© 2026</span>
+</footer>
+
+</body>
+</html>
